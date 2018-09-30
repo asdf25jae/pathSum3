@@ -13,8 +13,14 @@ class Solution(object):
         :rtype: int
         """
         if root == None: return 0
-        elif sum == root.val: return 1
         else:
-            left_path = self.pathSum(root.left, sum-root.val) + self.pathSum(root.left, sum)
-            right_path = self.pathSum(root.right, sum-root.val) + self.pathSum(root.right,sum)
-            return max(left_path, right_path)
+            return self.pathSumFrom(root, sum) +
+        self.pathSum(root.left, sum) + self.pathSum(root.right, sum)
+
+    def pathSumFrom(self, root, sum):
+        if root == None: return 0
+        else:
+            if root.val == sum: sum_0 = 1
+            if root.val != sum: sum_0 = 0
+            return sum_0 + self.pathSumFrom(root.left, sum-root.val) +
+             self.pathSumFrom(root.right, sum-root.val)
